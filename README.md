@@ -1,8 +1,8 @@
-#Pomadoro Tracker
+# Pomadoro Tracker
 
 CLI tools for [pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique)
 
-###Installation
+### Installation
 
 Install package with pip:
 
@@ -12,7 +12,7 @@ After it you can launch CLI with simply:
 
 `pomodoro`
 
-###Avaiable customization:
+### Avaiable customization:
 
 | Flag | Action |
 | --- | --- |
@@ -21,7 +21,7 @@ After it you can launch CLI with simply:
 | --folder=new | Use specific folder for storing sessions. Defaults to *daily* |
 | --extension=txt | Use specific files' extension. Defaults to *.pomodoro* |
 
-###Example:
+### Example:
 
 `pomodoro --folder=project_1 --extension=log`
 
