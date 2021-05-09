@@ -9,18 +9,30 @@ from pomodoro_tracker.utils import form
 
 class BaseFileWriter:
 
-    file_extension: str
+    file_extension: str = 'pomodoro'
 
-    def __init__(self, file_extension: t.Optional[str] = 'pomodoro'):
+    folder_name: str = 'daily'
+
+    def __init__(self, file_extension: t.Optional[str] = None):
 
         self._date = date.today()
         self._date_str = form(self._date, "%d-%m-%Y")
-        self.file_extension = file_extension
+        self.file_extension = file_extension or self.file_extension
         self._filename = f'{self._date_str}.{self.file_extension}'
 
         self._file: _io.TextIOWrapper = None
 
-        self._folder = os.path.join(os.getcwd(), 'daily')
+        self._folder = os.path.join(os.getcwd(), self.folder_name)
+
+    def set_extension(self, file_extension: str) -> None:
+
+        self.file_extension = file_extension
+        self._filename = f'{self._date_str}.{self.file_extension}'
+
+    def set_folder(self, folder_name: str) -> None:
+
+        self.folder_name = folder_name
+        self._folder = os.path.join(os.getcwd(), self.folder_name)
 
     @property
     def file(self) -> _io.TextIOWrapper:
