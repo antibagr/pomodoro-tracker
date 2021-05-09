@@ -1,8 +1,18 @@
+#Pomadoro Tracker
+
 CLI tools for [pomodoro technique](https://en.wikipedia.org/wiki/Pomodoro_Technique)
 
-Run with `pomodoro` command.
+###Installation
 
-Avaiable flags:
+Install package with pip:
+
+`pip install rudie-pomodoro-tracker==0.1.0`
+
+After it you can launch CLI with simply:
+
+`pomodoro`
+
+###Avaiable customization:
 
 | Flag | Action |
 | --- | --- |
@@ -10,6 +20,10 @@ Avaiable flags:
 | --no-clear | Do not clear output after creating session |
 | --folder=new | Use specific folder for storing sessions. Defaults to *daily* |
 | --extension=txt | Use specific files' extension. Defaults to *.pomodoro* |
+
+###Example:
+
+`pomodoro --folder=project_1 --extension=log`
 
 By default all pomodoro logs stored in folder called *daily* where you run `pomodoro` command.
 Files have extension .pomodoro, but they are simply text files.
