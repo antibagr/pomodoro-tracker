@@ -6,7 +6,8 @@ _cmd = [
     ('anything else', 'lap title'),
 ]
 
-COMMANDS: str = '\n'.join([' - '.join(list(map(lambda e: f"{e:<13}", l))) for l in _cmd])
+COMMANDS: str = '\n'.join(
+    [' - '.join(list(map(lambda e: f"{e:<13}", l))) for l in _cmd])
 
 
 class TYPES:

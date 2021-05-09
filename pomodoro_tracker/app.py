@@ -1,16 +1,27 @@
 import logging
+import typing as t
+from unittest.mock import MagicMock
 
-from track import Tracker
+
+from pomodoro_tracker.track import Tracker
 
 
-
-def run_tracker() -> None:
+def run_tracker(*args: t.Any) -> None:
     '''
     Wrapper for Tracker.start infinite loop.
     '''
 
     try:
+
         tracker = Tracker()
+
+        if '-s' in args:
+
+            tracker.writer.write = MagicMock()
+
+        if '-d' in args:
+
+            tracker.console.clear = MagicMock()
 
         tracker.start()
 

@@ -2,8 +2,8 @@ import os
 import platform
 import typing as t
 
-from display import ABOUT, COMMANDS
-from session import Session
+from pomodoro_tracker.config import ABOUT, COMMANDS
+from pomodoro_tracker.session import Session
 
 
 class BaseConsolePrinter:

@@ -1,16 +1,17 @@
 import os
-import _io
 import typing as t
-from datetime import date
+from datetime import date, datetime
 
-from utils import form
+import _io
+
+from pomodoro_tracker.utils import form
 
 
 class BaseFileWriter:
 
     file_extension: str
 
-    def __init__(self, file_extension: t.Optional[str] = 'txt'):
+    def __init__(self, file_extension: t.Optional[str] = 'pomodoro'):
 
         self._date = date.today()
         self._date_str = form(self._date, "%d-%m-%Y")
@@ -29,7 +30,7 @@ class BaseFileWriter:
 
     def write(self, line: t.AnyStr) -> None:
 
-        line = f'{line}\n'
+        line = str(line) + '\n'
 
         self.file.write(line)
 
@@ -46,5 +47,7 @@ class FileWriter(BaseFileWriter):
         Write start line if file is empty.
         '''
 
-        if os.stat(self._filename).st_size == 0:
-            self.write(f'Start tracker at {form(datetime.now())}')
+        if os.path.exists(self._filename) and os.stat(self._filename).st_size != 0:
+            return
+
+        self.write(f'Start tracker at {form(datetime.now())}\n')

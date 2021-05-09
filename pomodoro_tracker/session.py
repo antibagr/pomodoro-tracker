@@ -1,6 +1,6 @@
 from datetime import date, datetime, timedelta
 
-from utils import form, pretty
+from pomodoro_tracker.utils import form, pretty
 
 
 class Session:

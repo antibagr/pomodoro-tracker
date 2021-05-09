@@ -1,12 +1,11 @@
 import typing as t
 from datetime import date, datetime, timedelta
 
-from console import ConsolePrinter
-from display import TYPES
-from session import Session
-from writer import FileWriter
-
-from utils import pretty
+from pomodoro_tracker.config import TYPES
+from pomodoro_tracker.console import ConsolePrinter
+from pomodoro_tracker.session import Session
+from pomodoro_tracker.utils import pretty
+from pomodoro_tracker.writer import FileWriter
 
 
 class Tracker:
@@ -45,6 +44,9 @@ class Tracker:
         total = ", ".join([f"{k} : {pretty(v)}" for k,
                            v in self.count_total().items()])
 
+        if not total:
+            return
+
         total = f'\n{total}\n'
 
         self.console.print(total)
@@ -52,6 +54,14 @@ class Tracker:
         self.writer.write(total)
 
     def start(self) -> None:
+        '''
+        Infinite loop. Ask user for enter value, which can be any of:
+            end - stop loop, exit tracker
+            lap - create new session
+            %any_text% - create new session with custom title.
+
+        Refresh console and write new session to a file after every input.
+        '''
 
         session_start = datetime.now()
 
@@ -82,6 +92,7 @@ class Tracker:
 
             elif inp and len(inp) < 20:
                 title = inp
+
             else:
                 continue
 
