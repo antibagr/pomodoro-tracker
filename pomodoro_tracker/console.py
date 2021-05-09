@@ -33,6 +33,8 @@ class ConsolePrinter(BaseConsolePrinter):
     Simple holder to predefine display function.
     '''
 
+    cache_line: str = None
+
     def display(self, sessions: t.List[Session]) -> None:
         '''
         Print app summary and sessions list.

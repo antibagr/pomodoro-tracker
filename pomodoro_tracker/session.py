@@ -1,5 +1,6 @@
 from datetime import date, datetime, timedelta
 
+from pomodoro_tracker.config import TYPES
 from pomodoro_tracker.utils import form, pretty
 
 
@@ -18,7 +19,7 @@ class Session:
 
     Attributes:
         duration (timedelta)
-        title
+        title: max length is 50 characters
         start_timestamp
         end_timestamp
         working (bool): whether is it a work session or not
@@ -33,19 +34,21 @@ class Session:
 
     duration: timedelta
 
+    working: bool
+
     def __init__(self, title: str, start_timestamp: datetime, end_timestamp: datetime) -> None:
 
-        self.title = title
-        self.start_timestamp = start_timestamp.replace(microsecond = 0)
-        self.end_timestamp = end_timestamp.replace(microsecond = 0)
+        self.title = title if len(title) < 51 else title[:47] + '...'
+        self.start_timestamp = start_timestamp.replace(microsecond=0)
+        self.end_timestamp = end_timestamp.replace(microsecond=0)
 
         self.duration = self.end_timestamp - self.start_timestamp
 
     def __str__(self) -> str:
-        return f"{self.title:<20} - {pretty(self.duration):<20}" \
+        return f"{self.title:<50} - {pretty(self.duration):<20}" \
                 f"{form(self.start_timestamp, '%d.%m %H:%M:%S')}" \
                 f" - {form(self.end_timestamp):<20}"
 
     @property
     def working(self) -> bool:
-        return self.title == 'work session'
+        return self.title == TYPES.WORK

@@ -10,7 +10,7 @@ from pomodoro_tracker.writer import FileWriter
 
 class Tracker:
 
-    _is_work_session: bool
+    _is_work_session: bool # current session bool link.
 
     sessions: t.List[Session]
 
@@ -64,9 +64,11 @@ class Tracker:
     def start(self) -> None:
         '''
         Infinite loop. Ask user for enter value, which can be any of:
-            end - stop loop, exit tracker
-            lap - create new session
-            %any_text% - create new session with custom title.
+
+            e, end      -   stop loop, exit tracker.
+            e!, end!    -   exit tracker without counting total time.
+            l, lap      -   create new session
+            %any_text%  -   create new session with custom title.
 
         Refresh console and write new session to a file after every input.
         '''
@@ -79,11 +81,15 @@ class Tracker:
 
             self.console.display(self.sessions)
 
+            # Ask user to input option.
+
             inp: str = input(': ')
 
             now = datetime.now()
 
             if inp in ('end', 'end!', 'e', 'e!'):
+
+                # Exit from the CLI loop.
 
                 self.console.display(self.sessions)
 
@@ -94,14 +100,17 @@ class Tracker:
 
             if inp in ('lap', 'l'):
 
-                title = TYPES.WORK if self._is_work_session else TYPES.RELAX
+                # Complete session and start new.
 
+                title = TYPES.WORK if self._is_work_session else TYPES.RELAX
                 self._is_work_session = not self._is_work_session
 
-            elif inp and len(inp) < 20:
-                title = inp
+            elif inp:
 
+                # Complete session with custom title.
+                title = inp
             else:
+
                 continue
 
             session = Session(title, session_start, now)
