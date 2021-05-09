@@ -7,6 +7,9 @@ from pomodoro_tracker.session import Session
 
 
 class BaseConsolePrinter:
+    '''
+    Wrapper to builtin print() command
+    '''
 
     platform: str
 
@@ -26,6 +29,9 @@ class BaseConsolePrinter:
 
 
 class ConsolePrinter(BaseConsolePrinter):
+    '''
+    Simple holder to predefine display function.
+    '''
 
     def display(self, sessions: t.List[Session]) -> None:
         '''

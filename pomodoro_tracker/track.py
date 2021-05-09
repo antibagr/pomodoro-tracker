@@ -24,6 +24,10 @@ class Tracker:
         self.console = ConsolePrinter()
 
     def count_total(self) -> t.Dict[str, timedelta]:
+        '''
+        Generate dict with sessions' title as a key.
+        Sum total duration time.
+        '''
 
         totals: t.Dict[str, timedelta] = {}
 
@@ -40,6 +44,10 @@ class Tracker:
         return totals
 
     def print_total(self) -> None:
+        '''
+        Print to both file and console total time for both
+        work sessions and relax sessions.
+        '''
 
         total = ", ".join([f"{k} : {pretty(v)}" for k,
                            v in self.count_total().items()])

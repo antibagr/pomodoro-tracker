@@ -4,6 +4,26 @@ from pomodoro_tracker.utils import form, pretty
 
 
 class Session:
+    '''
+    Three types of session exist:
+        working session
+        relax
+        another with custom title
+
+    Args:
+        title (str): header of session to use in file and console.
+                     used to determine whether is it work session or not.
+        start_timestamp (datetime): sesison start time.
+        end_timestamp (datetime): session end time.
+
+    Attributes:
+        duration (timedelta)
+        title
+        start_timestamp
+        end_timestamp
+        working (bool): whether is it a work session or not
+
+    '''
 
     title: str
 

@@ -3,19 +3,13 @@ import typing as t
 from unittest.mock import MagicMock
 
 from pomodoro_tracker.track import Tracker
+from pomodoro_tracker.utils import find
 
 
 def run_tracker(*args: t.Any) -> None:
     '''
-    Wrapper for Tracker.start infinite loop.
+    Wrapper for Tracker.start infinite loop. Parse CLI arguments.
     '''
-
-    def find(target: str, sequence: t.Sequence[str]) -> t.Optional[str]:
-
-        for x in sequence:
-            if target in x:
-                return x
-        return None
 
     try:
 
@@ -23,7 +17,7 @@ def run_tracker(*args: t.Any) -> None:
 
         if '--no-save' in args:
 
-            tracker.writer.write = MagicMock()
+            tracker.writer.file = MagicMock()
 
         if '--no-clear' in args:
 
@@ -43,15 +37,15 @@ def run_tracker(*args: t.Any) -> None:
                 raise ValueError(
                     'Custom folder name not found in arguments' + folder_guide)
 
-            tracker.writer.set_folder(folder)
+            tracker.writer.folder = folder
 
         if find('--extension', args):
 
-            ext = find('--extension', args).split('=')[-1].strip()
+            ext: str = find('--extension', args).split('=')[-1].strip()
 
             tracker.writer.set_extension(ext)
 
-
+        # Here we actually start infinite loop with user's input
 
         tracker.start()
 
@@ -59,7 +53,7 @@ def run_tracker(*args: t.Any) -> None:
         logging.exception(e, exc_info=True)
 
     except KeyboardInterrupt:
-        pass
+        ...
 
     finally:
         tracker.stop()

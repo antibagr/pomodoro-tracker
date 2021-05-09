@@ -7,7 +7,7 @@ README = (BASE_DIR / "README.md").read_text()
 
 setup(
     name="rudie-pomodoro-tracker",
-    version="0.0.1",
+    version="0.1.0",
     description="Pomodoro tracker with CLI interface.",
     long_description=README,
     long_description_content_type="text/markdown",
