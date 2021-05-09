@@ -20,11 +20,17 @@ class BaseFileWriter:
 
         self._file: _io.TextIOWrapper = None
 
+        self._folder = os.path.join(os.getcwd(), 'daily')
+
     @property
     def file(self) -> _io.TextIOWrapper:
 
         if self._file is None:
-            self._file = open(self._filename, 'a')
+
+            if not os.path.exists(self._folder):
+                os.mkdir(self._folder)
+
+            self._file = open(os.path.join(self._folder, self._filename), 'a')
 
         return self._file
 
